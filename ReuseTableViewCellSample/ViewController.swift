@@ -5,9 +5,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView! {
         // 1.プロパティに値がセットされたら
         didSet {
-            // 2.セルを登録して
+            // 2.再利用するセルを登録して
             tableView.register(MyTableViewCell.self, forCellReuseIdentifier: "MyTableViewCell")
-            // 3.UITableViewDataSourceプロトコルのdelegateメソッドを紐付ける
+            // 3.tableViewのdataSourceにselfをセットしてデータを供給する
             tableView.dataSource = self
         }
     }
@@ -24,8 +24,9 @@ extension ViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print(#function + "\(indexPath.row)")
         // 5.セルの生成、または再利用
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyTableViewCell") as? MyTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyTableViewCell") else { return UITableViewCell() }
         cell.textLabel?.text = String(indexPath.row)
         if indexPath.row > 10 {
             cell.backgroundColor = .yellow
