@@ -26,7 +26,8 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print(#function + "\(indexPath.row)")
         // 5.セルの生成、または再利用
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyTableViewCell") else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyTableViewCell")
+            else { return UITableViewCell() }
         cell.textLabel?.text = String(indexPath.row)
         if indexPath.row > 10 {
             cell.backgroundColor = .yellow
